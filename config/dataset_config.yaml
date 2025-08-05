@@ -1,0 +1,167 @@
+# 数据集配置文件
+# 花草检测项目数据集设置
+
+# 数据集基本信息
+dataset:
+  name: "flower_plant_detection"
+  version: "1.0"
+  description: "8种花草检测数据集"
+  
+# 数据路径配置
+paths:
+  # 根目录
+  root: "./data"
+  
+  # 原始数据
+  raw_data: "./data/raw"
+  
+  # 处理后数据
+  processed_data: "./data/processed"
+  
+  # 标注文件
+  annotations: "./data/annotations"
+  
+  # 样本数据
+  samples: "./data/samples"
+  
+  # 训练数据
+  train:
+    images: "./data/train/images"
+    labels: "./data/train/labels"
+    
+  # 验证数据
+  val:
+    images: "./data/val/images" 
+    labels: "./data/val/labels"
+    
+  # 测试数据
+  test:
+    images: "./data/test/images"
+    labels: "./data/test/labels"
+
+# 类别定义 (8种花草)
+classes:
+  names:
+    0: "玫瑰"      # Rose
+    1: "向日葵"    # Sunflower  
+    2: "郁金香"    # Tulip
+    3: "雏菊"      # Daisy
+    4: "百合"      # Lily
+    5: "康乃馨"    # Carnation
+    6: "兰花"      # Orchid
+    7: "牡丹"      # Peony
+    
+  # 英文对照
+  english_names:
+    0: "Rose"
+    1: "Sunflower"
+    2: "Tulip" 
+    3: "Daisy"
+    4: "Lily"
+    5: "Carnation"
+    6: "Orchid"
+    7: "Peony"
+    
+  # 类别描述
+  descriptions:
+    0: "玫瑰花，花朵通常为红色、粉色或白色，花瓣多层叠"
+    1: "向日葵，大型黄色花朵，中心为深色，花朵面向太阳"
+    2: "郁金香，杯状花朵，颜色丰富，春季开花"
+    3: "雏菊，小型白色或黄色花朵，花瓣细长"
+    4: "百合，大型花朵，花瓣向外展开，通常为白色或粉色"
+    5: "康乃馨，花边状花瓣，颜色多样，常用作装饰"
+    6: "兰花，优雅花形，花瓣独特，颜色丰富"
+    7: "牡丹，大型花朵，花瓣丰富，通常为粉色或红色"
+
+# 数据集统计信息
+statistics:
+  total_classes: 8
+  
+  # 数据集划分比例
+  split_ratio:
+    train: 0.7      # 70% 训练
+    val: 0.2        # 20% 验证  
+    test: 0.1       # 10% 测试
+    
+  # 目标数据集大小
+  target_samples:
+    total: 10000    # 总样本数
+    per_class: 1250 # 每类样本数
+    
+  # 图像规格
+  image_specs:
+    formats: ["jpg", "jpeg", "png", "bmp"]
+    min_resolution: [224, 224]      # 最小分辨率
+    max_resolution: [1920, 1920]   # 最大分辨率
+    target_size: [640, 640]        # 目标尺寸
+    
+  # 标注规格
+  annotation_format: "YOLO"         # YOLO格式
+  bbox_format: "xywh_normalized"    # 归一化的中心点坐标和宽高
+
+# 数据增强设置
+augmentation:
+  enabled: true
+  
+  # 几何变换
+  geometric:
+    rotation: [-15, 15]      # 旋转角度范围
+    scale: [0.8, 1.2]        # 缩放范围
+    translation: 0.1         # 平移范围
+    horizontal_flip: 0.5     # 水平翻转概率
+    vertical_flip: 0.0       # 垂直翻转概率
+    
+  # 颜色变换
+  color:
+    brightness: 0.2          # 亮度调整范围
+    contrast: 0.2            # 对比度调整范围
+    saturation: 0.2          # 饱和度调整范围
+    hue: 0.1                 # 色调调整范围
+    
+  # 噪声和模糊
+  noise:
+    gaussian_noise: 0.1      # 高斯噪声强度
+    motion_blur: 0.1         # 运动模糊概率
+    gaussian_blur: 0.1       # 高斯模糊概率
+
+# 数据验证
+validation:
+  # 检查项目
+  checks:
+    - "image_existence"      # 图像文件存在性
+    - "label_existence"      # 标签文件存在性
+    - "bbox_validity"        # 边界框有效性
+    - "class_distribution"   # 类别分布
+    - "image_quality"        # 图像质量
+    - "annotation_format"    # 标注格式
+    
+  # 质量标准
+  quality_standards:
+    min_bbox_area: 32        # 最小边界框面积 (像素)
+    max_bbox_ratio: 10       # 最大长宽比
+    min_image_size: 224      # 最小图像尺寸
+    max_corrupted_ratio: 0.01 # 最大损坏文件比例
+
+# 数据来源配置
+sources:
+  # 可能的数据来源
+  potential_sources:
+    - "Open Images Dataset"
+    - "COCO Dataset"
+    - "ImageNet"
+    - "Flickr"
+    - "Unsplash"
+    - "自定义收集"
+    
+  # 下载设置
+  download:
+    batch_size: 100          # 批量下载大小
+    max_workers: 4           # 并行下载进程数
+    timeout: 30              # 下载超时时间(秒)
+    retry_attempts: 3        # 重试次数
+
+# 导出设置
+export:
+  formats: ["YOLO", "COCO", "Pascal VOC"]  # 支持的导出格式
+  include_images: true                      # 是否包含图像
+  include_metadata: true                    # 是否包含元数据
