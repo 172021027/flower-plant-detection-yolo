@@ -1,0 +1,17 @@
+# 这是一个示例URL文件
+# 每行一个图像URL
+# 以#开头的行为注释
+
+# 玫瑰图像示例URL (请替换为实际的图像URL)
+https://example.com/rose1.jpg
+https://example.com/rose2.jpg
+
+# 向日葵图像示例URL
+https://example.com/sunflower1.jpg
+https://example.com/sunflower2.jpg
+
+# 注意事项:
+# 1. 确保URL指向有效的图像文件
+# 2. 请遵守网站的使用条款和版权规定
+# 3. 避免过于频繁的请求，以免被封禁
+# 4. 建议使用公开的数据集API
