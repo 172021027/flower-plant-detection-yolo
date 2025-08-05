@@ -16,6 +16,7 @@ import numpy as np
 from pathlib import Path
 from typing import Dict, List, Tuple, Any, Optional
 from collections import defaultdict, Counter
+from datetime import datetime
 import logging
 
 # 设置日志
@@ -466,7 +467,7 @@ def create_dataset_summary(config: Dict[str, Any], output_path: str = "dataset_s
             'name': config['dataset']['name'],
             'version': config['dataset']['version'], 
             'description': config['dataset']['description'],
-            'created_time': str(pd.Timestamp.now())
+            'created_time': str(datetime.now())
         },
         'classes': {
             'total_classes': len(manager.classes),
